@@ -34,7 +34,7 @@
 .meetUserVideo {
     position: absolute;
     bottom: 120px;
-    right: 20px; /* moved to right for better visibility */
+    left: 20px; /* moved to left for better visibility and avoid chat overlap */
     height: 20vh;
     width: auto;
     border-radius: 12px;
@@ -172,4 +172,36 @@
 
 .chattingArea button:hover {
     transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .chatRoom {
+        width: calc(100% - 40px);
+        bottom: 120px;
+        z-index: 1000;
+    }
+    
+    .buttonContainers {
+        width: 90%;
+        padding: 10px;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-radius: 20px;
+    }
+
+    .buttonContainers button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .meetUserVideo {
+        height: 15vh;
+        left: 10px;
+        bottom: 130px;
+    }
+    
+    .conferenceView {
+        grid-template-columns: 1fr;
+    }
 }
