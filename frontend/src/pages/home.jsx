@@ -61,7 +61,7 @@ function HomeComponent() {
                     </div>
                 </div>
                 <div className='rightPanel'>
-                    <img src='/logo3.png' alt="Confera Meeting" />
+                    <img src='/logo.jpg' alt="Confera Meeting" />
                 </div>
             </div>
         </div>
