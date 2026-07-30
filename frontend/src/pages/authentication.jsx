@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { AuthContext } from '../contexts/AuthContext';
 import { Snackbar } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import "../App.css";
 
 const darkTheme = createTheme({
@@ -28,6 +29,13 @@ export default function Authentication() {
     const [open, setOpen] = React.useState(false);
 
     const { handleRegister, handleLogin } = React.useContext(AuthContext);
+    const router = useNavigate();
+
+    React.useEffect(() => {
+        if (localStorage.getItem("token")) {
+            router("/home");
+        }
+    }, []);
 
     let handleAuth = async () => {
         try {

@@ -6,6 +6,12 @@ export default function LandingPage() {
 
     const router = useNavigate();
 
+    React.useEffect(() => {
+        if (localStorage.getItem("token")) {
+            router("/home");
+        }
+    }, []);
+
     return (
         <div className='landingPageContainer'>
             <nav>
