@@ -21,14 +21,21 @@
 }
 
 /* Adjust video grid for large numbers of users */
-.conferenceView > video {
+.conferenceView > div {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     border-radius: 16px;
+    overflow: hidden;
     background: #111;
     box-shadow: 0 8px 30px rgba(0,0,0,0.5);
     border: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+}
+
+.conferenceView video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .meetUserVideo {
@@ -176,13 +183,17 @@
 
 @media (max-width: 768px) {
     .chatRoom {
-        width: calc(100% - 40px);
-        bottom: 120px;
+        width: auto;
+        left: 20px;
+        right: 20px;
+        bottom: 150px;
+        top: 20px;
         z-index: 1000;
     }
     
     .buttonContainers {
-        width: 90%;
+        width: calc(100% - 40px);
+        bottom: 10px;
         padding: 10px;
         justify-content: center;
         gap: 10px;
@@ -191,17 +202,19 @@
     }
 
     .buttonContainers button {
-        width: 40px;
-        height: 40px;
+        width: 45px;
+        height: 45px;
     }
 
     .meetUserVideo {
-        height: 15vh;
-        left: 10px;
-        bottom: 130px;
+        height: 20vh;
+        left: 20px;
+        bottom: 100px;
     }
     
     .conferenceView {
         grid-template-columns: 1fr;
+        padding: 10px;
+        padding-bottom: 150px;
     }
 }

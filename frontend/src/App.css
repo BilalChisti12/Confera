@@ -410,7 +410,7 @@ body::before {
   .landingMainContainer {
     flex-direction: column;
     text-align: center;
-    padding: 2rem 5%;
+    padding: 2rem 1rem;
   }
   .landingMainContainer > div:nth-child(1) {
     padding-right: 0;
@@ -423,22 +423,44 @@ body::before {
     gap: 1rem;
     padding: 1rem;
   }
+  .landingPageContainer nav .navlist {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
   .navBar {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
   }
+  .navBar .nav-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
   .meetContainer {
     flex-direction: column;
-    padding: 2rem 5%;
+    padding: 2rem 1rem;
     gap: 2rem;
   }
   .leftPanel {
     width: 100%;
     min-width: 100%;
-    padding: 2rem;
+    padding: 1.5rem;
+  }
+  .join-box {
+    flex-direction: column;
+  }
+  .join-box input, .join-box button {
+    width: 100%;
   }
   .rightPanel {
     display: none;
+  }
+  .auth-container {
+    padding: 1rem;
+  }
+  .auth-card {
+    padding: 1.5rem;
   }
 }
