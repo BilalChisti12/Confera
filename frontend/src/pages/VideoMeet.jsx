@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import io from "socket.io-client";
-import { Badge, IconButton, TextField } from '@mui/material';
-import { Button } from '@mui/material';
+import { Badge } from '@mui/material';
 import VideocamIcon from '@mui/icons-material/Videocam';
 import VideocamOffIcon from '@mui/icons-material/VideocamOff'
 import styles from "../styles/videoComponent.module.css";
@@ -474,80 +473,86 @@ export default function VideoMeetComponent() {
 
     return (
         <div>
-
             {askForUsername === true ?
-
-                <div>
-
-
-                    <h2>Enter into Lobby </h2>
-                    <TextField id="outlined-basic" label="Username" value={username} onChange={e => setUsername(e.target.value)} variant="outlined" />
-                    <Button variant="contained" onClick={connect}>Connect</Button>
-
-
-                    <div>
-                        <video ref={localVideoref} autoPlay muted></video>
+                <div className="auth-container">
+                    <div className="auth-card">
+                        <h1>Join Lobby</h1>
+                        <p>Enter your name to connect</p>
+                        
+                        <div className="auth-form" style={{ marginBottom: "2rem" }}>
+                            <input 
+                                className="modern-input" 
+                                placeholder="Username" 
+                                value={username} 
+                                onChange={e => setUsername(e.target.value)} 
+                            />
+                            <button className="btn-primary" onClick={connect}>Connect</button>
+                        </div>
+                        
+                        <div style={{ borderRadius: "16px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.1)", background: "#000" }}>
+                            <video ref={localVideoref} autoPlay muted style={{ width: "100%", display: "block" }}></video>
+                        </div>
                     </div>
-
-                </div> :
-
-
+                </div> 
+                :
                 <div className={styles.meetVideoContainer}>
 
                     {showModal ? <div className={styles.chatRoom}>
-
                         <div className={styles.chatContainer}>
-                            <h1>Chat</h1>
+                            <div style={{ padding: "15px", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                                <h2 style={{ margin: 0, fontSize: "1.2rem", color: "white" }}>Chat Room</h2>
+                            </div>
 
-                            <div className={styles.chattingDisplay}>
-
+                            <div className={styles.chatMessages}>
                                 {messages.length !== 0 ? messages.map((item, index) => {
-
-                                    console.log(messages)
                                     return (
-                                        <div style={{ marginBottom: "20px" }} key={index}>
-                                            <p style={{ fontWeight: "bold" }}>{item.sender}</p>
-                                            <p>{item.data}</p>
+                                        <div className={styles.chatMessage} key={index}>
+                                            <b>{item.sender}</b>
+                                            {item.data}
                                         </div>
                                     )
-                                }) : <p>No Messages Yet</p>}
-
-
+                                }) : <p style={{ color: "rgba(255,255,255,0.5)", textAlign: "center", marginTop: "20px" }}>No Messages Yet</p>}
                             </div>
 
                             <div className={styles.chattingArea}>
-                                <TextField value={message} onChange={(e) => setMessage(e.target.value)} id="outlined-basic" label="Enter Your chat" variant="outlined" />
-                                <Button variant='contained' onClick={sendMessage}>Send</Button>
+                                <input 
+                                    type="text" 
+                                    placeholder="Type a message..." 
+                                    value={message} 
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    onKeyDown={(e) => { if (e.key === 'Enter') sendMessage() }}
+                                />
+                                <button onClick={sendMessage}>
+                                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                                </button>
                             </div>
-
-
                         </div>
                     </div> : <></>}
 
 
                     <div className={styles.buttonContainers}>
-                        <IconButton onClick={handleVideo} style={{ color: "white" }}>
+                        <button onClick={handleVideo} style={{ color: video ? "white" : "#ff4d4d" }}>
                             {(video === true) ? <VideocamIcon /> : <VideocamOffIcon />}
-                        </IconButton>
-                        <IconButton onClick={handleEndCall} style={{ color: "red" }}>
-                            <CallEndIcon  />
-                        </IconButton>
-                        <IconButton onClick={handleAudio} style={{ color: "white" }}>
+                        </button>
+                        <button onClick={handleAudio} style={{ color: audio ? "white" : "#ff4d4d" }}>
                             {audio === true ? <MicIcon /> : <MicOffIcon />}
-                        </IconButton>
-
+                        </button>
+                        
                         {screenAvailable === true ?
-                            <IconButton onClick={handleScreen} style={{ color: "white" }}>
+                            <button onClick={handleScreen} style={{ color: screen ? "#6366f1" : "white" }}>
                                 {screen === true ? <ScreenShareIcon /> : <StopScreenShareIcon />}
-                            </IconButton> : <></>}
+                            </button> : <></>}
 
-                        <Badge badgeContent={newMessages} max={999} color='orange'>
-                            <IconButton onClick={() => setModal(!showModal)} style={{ color: "white" }}>
-                                <ChatIcon />                        </IconButton>
+                        <Badge badgeContent={newMessages} max={999} color='error'>
+                            <button onClick={() => { setModal(!showModal); setNewMessages(0); }} style={{ color: showModal ? "#6366f1" : "white" }}>
+                                <ChatIcon />                        
+                            </button>
                         </Badge>
-
+                        
+                        <button onClick={handleEndCall} style={{ background: "#ff4d4d", color: "white" }}>
+                            <CallEndIcon  />
+                        </button>
                     </div>
-
 
                     <video className={styles.meetUserVideo} ref={localVideoref} autoPlay muted></video>
 
@@ -555,7 +560,6 @@ export default function VideoMeetComponent() {
                         {videos.map((video) => (
                             <div key={video.socketId}>
                                 <video
-
                                     data-socket={video.socketId}
                                     ref={ref => {
                                         if (ref && video.stream) {
@@ -566,15 +570,10 @@ export default function VideoMeetComponent() {
                                 >
                                 </video>
                             </div>
-
                         ))}
-
                     </div>
-
                 </div>
-
             }
-
         </div>
     )
 }
