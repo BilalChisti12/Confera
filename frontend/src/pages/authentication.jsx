@@ -35,7 +35,7 @@ export default function Authentication() {
         if (localStorage.getItem("token")) {
             router("/home");
         }
-    }, []);
+    }, [router]);
 
     let handleAuth = async () => {
         try {

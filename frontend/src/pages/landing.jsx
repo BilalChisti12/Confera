@@ -10,7 +10,7 @@ export default function LandingPage() {
         if (localStorage.getItem("token")) {
             router("/home");
         }
-    }, []);
+    }, [router]);
 
     return (
         <div className='landingPageContainer'>
