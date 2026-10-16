@@ -22,17 +22,22 @@ app.use(express.urlencoded({ limit: "40kb", extended: true }));
 app.use("/api/v1/users", userRoutes);
 
 const start = async () => {
-    app.set("mongo_user")
     const mongoURI = process.env.MONGO_URI || "mongodb+srv://imdigitalashish:imdigitalashish@cluster0.cujabk4.mongodb.net/";
-    const connectionDb = await mongoose.connect(mongoURI)
 
-    console.log(`MONGO Connected DB Host: ${connectionDb.connection.host}`)
+    try {
+        const connectionDb = await mongoose.connect(mongoURI);
+        console.log(`MONGO Connected DB Host: ${connectionDb.connection.host}`);
+    } catch (err) {
+        console.error("❌ MongoDB connection failed:");
+        console.error(`   URI used: ${mongoURI.replace(/:\/\/.*@/, "://<credentials>@")}`);
+        console.error(`   Error: ${err.message}`);
+        console.error("   Fix: Check MONGO_URI env var on Render and ensure 0.0.0.0/0 is whitelisted in MongoDB Atlas Network Access.");
+        process.exit(1);
+    }
+
     server.listen(app.get("port"), () => {
-        console.log("LISTENIN ON PORT 8000")
+        console.log(`✅ Server listening on port ${app.get("port")}`);
     });
-
-
-
 }
 
 
