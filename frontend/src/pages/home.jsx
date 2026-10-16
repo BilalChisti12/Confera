@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import withAuth from '../utils/withAuth'
 import { useNavigate } from 'react-router-dom'
 import "../App.css";
-import { IconButton } from '@mui/material';
+import { Button, IconButton, TextField } from '@mui/material';
 import RestoreIcon from '@mui/icons-material/Restore';
 import { AuthContext } from '../contexts/AuthContext';
 
@@ -20,51 +20,55 @@ function HomeComponent() {
     }
 
     return (
-        <div className="dashboard-container">
+        <>
+
             <div className="navBar">
+
                 <div style={{ display: "flex", alignItems: "center" }}>
-                    <h2>Confera</h2>
+
+                    <h2>Connectify</h2>
                 </div>
-                <div className="nav-actions">
-                    <IconButton onClick={() => navigate("/history")} sx={{ color: 'var(--text-main)' }}>
+
+                <div style={{ display: "flex", alignItems: "center" }}>
+                    <IconButton onClick={
+                        () => {
+                            navigate("/history")
+                        }
+                    }>
                         <RestoreIcon />
                     </IconButton>
-                    <p onClick={() => navigate("/history")}>History</p>
-                    <button 
-                        className="btn-primary" 
-                        style={{ background: 'rgba(255, 77, 77, 0.2)', color: '#ff4d4d', marginLeft: '1rem' }}
-                        onClick={() => {
-                            localStorage.removeItem("token")
-                            navigate("/auth")
-                        }}
-                    >
+                    <p>History</p>
+
+                    <Button onClick={() => {
+                        localStorage.removeItem("token")
+                        navigate("/auth")
+                    }}>
                         Logout
-                    </button>
+                    </Button>
                 </div>
+
+
             </div>
+
 
             <div className="meetContainer">
                 <div className="leftPanel">
-                    <h2>Seamless Video Calling for Everyone</h2>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem' }}>
-                        Connect instantly with crystal clear audio and video. Start a new meeting or join an existing one below.
-                    </p>
+                    <div>
+                        <h2>Providing Quality Video Call Just Like Quality Education</h2>
 
-                    <div className="join-box" style={{ width: '100%', marginTop: '1rem' }}>
-                        <input 
-                            className="modern-input" 
-                            placeholder="Enter Meeting Code" 
-                            value={meetingCode}
-                            onChange={e => setMeetingCode(e.target.value)} 
-                        />
-                        <button className="btn-primary" onClick={handleJoinVideoCall}>Join Room</button>
+                        <div style={{ display: 'flex', gap: "10px" }}>
+
+                            <TextField onChange={e => setMeetingCode(e.target.value)} id="outlined-basic" label="Meeting Code" variant="outlined" />
+                            <Button onClick={handleJoinVideoCall} variant='contained'>Join</Button>
+
+                        </div>
                     </div>
                 </div>
                 <div className='rightPanel'>
-                    <img src='/logo3.png' alt="Confera Meeting" />
+                    <img srcSet='/logo3.png' alt="" />
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
