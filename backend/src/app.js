@@ -28,7 +28,7 @@ const start = async () => {
         const connectionDb = await mongoose.connect(mongoURI);
         console.log(`MONGO Connected DB Host: ${connectionDb.connection.host}`);
     } catch (err) {
-        console.error("❌ MongoDB connection failed:");
+        console.error("   MongoDB connection failed:");
         console.error(`   URI used: ${mongoURI.replace(/:\/\/.*@/, "://<credentials>@")}`);
         console.error(`   Error: ${err.message}`);
         console.error("   Fix: Check MONGO_URI env var on Render and ensure 0.0.0.0/0 is whitelisted in MongoDB Atlas Network Access.");
